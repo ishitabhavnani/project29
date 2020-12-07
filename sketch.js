@@ -4,7 +4,7 @@ const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
 
 var engine, world;
-var platform1,platform2;
+var platform1,platform2, ground;
 var ball;
 var chain;
 var box1,box2,box3,box4,box5,box6,box7,box8,box9,box10,box11,box12,box13,box14,box15,box16,box17,box18,box19,box20,box21,box22,box23,box24,box25;
@@ -13,7 +13,7 @@ function preload() {
 }
 
 function setup(){
-    var canvas = createCanvas(1000,400);
+    var canvas = createCanvas(1000,500);
     engine = Engine.create();
     world = engine.world;
     
@@ -21,7 +21,7 @@ function setup(){
 
     chain= new SlingShot(ball.body,{x:100,y:200})
     platform1 = new Ground(580, 350, 200, 20);
-    
+     ground=new Ground(500,470,1000,30)
     
     box1= new Box(520,320,30,40)
     box2= new Box(550,320,30,40)
@@ -72,6 +72,7 @@ function draw(){
     Engine.update(engine);
     strokeWeight(3)
 
+    ground.display();
     ball.display();
     chain.display();
     platform1.display();
