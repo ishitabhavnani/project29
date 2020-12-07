@@ -12,8 +12,8 @@ class Ball {
         this.y=y
         this.r=r
         this.body = Bodies.circle (this.x,this.y,this.r/2,paper_options);
-        this.img=loadImage("polygon.png");
-        World.add(world, this.body);
+        this.img=loadImage("sprites/stone.png");
+        World.add(myWorld, this.body);
     }
 
     //define all the Box functions here

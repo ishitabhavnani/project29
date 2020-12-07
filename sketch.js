@@ -1,127 +1,105 @@
+
 const Engine = Matter.Engine;
-const World= Matter.World;
+const World = Matter.World;
 const Bodies = Matter.Bodies;
+const Body = Matter.Body;
 const Constraint = Matter.Constraint;
 
-var engine, world;
-var platform1,platform2, ground;
-var ball;
+var ground;
+var ball ;
+var tree;
+var boy;
 var chain;
-var box1,box2,box3,box4,box5,box6,box7,box8,box9,box10,box11,box12,box13,box14,box15,box16,box17,box18,box19,box20,box21,box22,box23,box24,box25;
-function preload() {
-    
+var m1,m2,m3,m4,m5,m6,m7,m8,m9,m10;
+function preload()
+{
+	
 }
 
-function setup(){
-    var canvas = createCanvas(1000,500);
-    engine = Engine.create();
-    world = engine.world;
-    
-    ball=new Ball(100,200,50)
+function setup() {
+	createCanvas(800, 700);
 
-    chain= new SlingShot(ball.body,{x:100,y:200})
-    platform1 = new Ground(580, 350, 200, 20);
-     ground=new Ground(500,470,1000,30)
-    
-    box1= new Box(520,320,30,40)
-    box2= new Box(550,320,30,40)
-    box3= new Box(580,320,30,40)
-    box4= new Box(610,320,30,40)
-    box5= new Box(640,320,30,40)
- 
 
+	engine = Engine.create();
+	myWorld = engine.world;
+
+	//Create the Bodies Here.
+    ground = new Ground(400,680,800,40);
+    ball= new Ball(15,500,50);
+    tree= new Tree(600,400,50,80);
+    boy=new Boy(10,450,80,100);
+    chain=new Chain(ball.body,{x:59,y:523});
+    m1=new Mango(650,150,25);
+    m2=new Mango(560,200,25); 
+    m3=new Mango(500,300,25); 
+    m4=new Mango(550,360,25); 
+    m5=new Mango(600,290,25); 
+    m6=new Mango(650,350,25); 
+    m7=new Mango(690,270,25); 
+    m8=new Mango(710,200,25); 
+    m9=new Mango(800,300,25); 
+    m10=new Mango(730,320,25); 
    
-    box6= new Box(535,280,30,40)
-    box7= new Box(565,280,30,40)
-    box8= new Box(595,280,30,40)
-    box9= new Box(625,280,30,40)
-    
-
- 
-    box10= new Box(550,240,30,40)
-    box11= new Box(580,240,30,40)
-    box12= new Box(610,240,30,40)
-
-    box13 = new Box(565,200,30,40)
-    box14 = new Box(595,200,30,40)
-
-    box15 = new Box(580,160,30,40)
-
-
-    platform2= new Ground(895,250,150,20)
-
-    box16= new Box(850,220,30,40)
-    box17= new Box(880,220,30,40)
-    box18= new Box(910,220,30,40)
-    box19= new Box(940,220,30,40)
-
-    box20= new Box(865,180,30,40)
-    box21= new Box(895,180,30,40)
-    box22= new Box(925,180,30,40)
-
-    box23= new Box(880,140,30,40)
-    box24= new Box(915,140,30,40)
-
-    box25= new Box(895,100,30,40)
-
-
-}
-
-function draw(){
-    background("white");
-    Engine.update(engine);
-    strokeWeight(3)
-
-    ground.display();
-    ball.display();
-    chain.display();
-    platform1.display();
-    
-    box1.display();
-    box2.display();
-    box3.display();
-    box4.display();
-    box5.display();
-   
-
-    
-    box6.display();
-    box7.display();
-    box8.display();
-    box9.display();
-   
-    box10.display();
-    box11.display();
-    box12.display();
-
-    box13.display();
-    box14.display();
-
-    box15.display();
-
-    platform2.display();
+	Engine.run(engine);
   
-    box16.display();
-    box17.display();
-    box18.display();
-    box19.display();
+}
 
-    box20.display();
-    box21.display();
-    box22.display();
 
-    box23.display();
-    box24.display();
-
-    box25.display();
-
+function draw() {
+  rectMode(CENTER);
+  background("white");
+  ground.display();
+  boy.display();
+  tree.display();
+  ball.display();
+  chain.display();
+  m1.display();
+  m2.display();
+  m3.display();
+  m4.display();
+  m5.display();
+  m6.display();
+  m7.display();
+  m8.display();
+  m9.display();
+  m10.display();
+  detectCollision(ball,m1);
+  detectCollision(ball,m2);
+  detectCollision(ball,m3);
+  detectCollision(ball,m4);
+  detectCollision(ball,m5);
+  detectCollision(ball,m6);
+  detectCollision(ball,m7);
+  detectCollision(ball,m8);
+  detectCollision(ball,m9);
+  detectCollision(ball,m10);
+ keyPressed();
 }
 
 function mouseDragged(){
-    Matter.Body.setPosition(ball.body, {x: mouseX , y: mouseY});
+  Matter.Body.setPosition(ball.body , {x: mouseX , y:mouseY})
 }
 
 
+
+function detectCollision(lstone,lmango){
+  mangoBodyPosition=lmango.body.position
+  stoneBodyPosition=lstone.body.position
+
+  var distance=dist( stoneBodyPosition.x, stoneBodyPosition.y,mangoBodyPosition.x , mangoBodyPosition.y)
+  if (distance<=lmango.r+lstone.r){
+    Matter.Body.setStatic(lmango.body,false)
+  }
+}
+
+function keyPressed(){
+  if (keyCode===32){
+    Matter.Body.setPosition(ball.body, {x:59,y:520})
+    chain.attach(ball.body)
+  }
+}
 function mouseReleased(){
-    chain.fly();
+  chain.fly()
 }
+
+
