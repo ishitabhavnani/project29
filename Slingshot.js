@@ -29,4 +29,5 @@ class SlingShot{
    fly(){
         this.body.bodyA = null;
     }
+
 }
